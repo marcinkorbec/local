@@ -1,0 +1,77 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "globals": {
+    "localStorage": true,
+    "document": true,
+    "window": true,
+    "fetch": false,
+    "Blob": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "eslint-config-prettier",
+    "prettier/react"
+  ],
+  "plugins": ["eslint-plugin-prettier"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"]
+  },
+  "rules": {
+//    "prettier/prettier": "warn",
+    "import/prefer-default-export": 0,
+    "semi": "warn",
+    "no-console": ["warn", { "allow": ["error"] }],
+    "react/jsx-props-no-spreading": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["off"],
+    "jsx-quotes": [2, "prefer-single"],
+    "comma-dangle": 0,
+    "arrow-parens": [2, "as-needed"],
+    "object-curly-newline": "off",
+    "no-unused-vars": 1,
+    "arrow-body-style": [1, "as-needed"],
+    "import/imports-first": 0,
+    "import/newline-after-import": 0,
+    "import/no-dynamic-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-named-as-default": 0,
+    "new-cap": [2, { "properties": false }],
+    "no-use-before-define": [2],
+    "no-trailing-spaces": [2],
+    "quotes": [2, "single"],
+    "wrap-iife": [2, "outside"],
+    "strict": [2, "global"],
+    "brace-style": 2,
+    "block-spacing": [2, "always"],
+    "keyword-spacing": [2, { "before": true, "after": true, "overrides": {} }],
+    "space-before-blocks": 2,
+    "space-before-function-paren": [
+      2,
+      { "anonymous": "always", "named": "never" }
+    ],
+    "comma-spacing": [2, { "before": false, "after": true }],
+    "comma-style": [2, "last"],
+    "no-lonely-if": 2,
+    "array-bracket-spacing": [2, "never"],
+    "no-spaced-func": [2],
+    "space-in-parens": [2, "never"],
+    "space-infix-ops": 2,
+    "no-nested-ternary": "off",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}

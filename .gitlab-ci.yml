@@ -1,0 +1,111 @@
+image: docker:latest
+services:
+  - docker:dind
+before_script:
+  - docker info
+   
+docker-build-devel:
+  stage: build
+  variables:
+    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  only:
+   - devel
+docker-build-staging:
+  stage: build
+  variables:
+    TAG_LATEST: $CI_REGISTRY_IMAGE/$TYPE:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/$TYPE:$CI_COMMIT_SHORT_SHA
+    TYPE: "staging"
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -f Dockerfile.staging -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  only:
+   - devel
+docker-build-merge-requests:
+  stage: build
+  variables:
+    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+    TYPE: "_staging"
+  script:
+    - docker build -f Dockerfile.staging -t ${TAG_COMMIT,,}${TYPE} -t ${TAG_LATEST,,}${TYPE} .
+    - docker build -f Dockerfile -t ${TAG_COMMIT,,} -t ${TAG_LATEST,,} .
+    - docker rmi ${TAG_LATEST,,}
+    - docker rmi ${TAG_LATEST,,}${TYPE}
+  only:
+   - merge_requests  
+docker-build-master:
+  stage: build
+  variables:
+    TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -f Dockerfile.staging -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  only:
+   - master
+   - tags     
+deploy-to-staging:
+  stage: deploy
+  variables:
+    TAG_LATEST: $CI_REGISTRY_IMAGE/staging:latest
+    TAG_COMMIT: $CI_REGISTRY_IMAGE/staging:$CI_COMMIT_SHORT_SHA
+    GIT_STRATEGY: none
+  script:
+   - | 
+       ssh -o StrictHostKeyChecking=no -T root@128.mayeryn.com -i /root/.ssh/id_ed25519 -p 2215 <<EOF
+       docker rmi $TAG_LATEST
+       docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+       docker pull $TAG_LATEST
+       cd /opt/app
+       docker-compose -f docker-compose.staging.yml down
+       docker-compose -f docker-compose.staging.yml up -d
+       EOF
+  only:
+   - devel
+  when: on_success
+  environment:
+    name: staging
+    url: https://ec1.128.mayeryn.com
+    action: start
+log-from-staging:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+   - | 
+       ssh -o StrictHostKeyChecking=no -T root@128.mayeryn.com -i /root/.ssh/id_ed25519 -p 2215 <<EOF
+       cd /opt/app
+       docker-compose -f docker-compose.staging.yml logs
+       EOF
+  only:
+   - devel
+  when: manual
+deploy-to-production:
+  stage: deploy
+  variables:
+    tag: "devel_staging"
+    GIT_STRATEGY: none
+  script:
+    - echo "good"
+  only:
+   - master
+  when: manual    
+  environment:
+    name: production
+    url: https://good.mayeryn.com
+    action: start
+

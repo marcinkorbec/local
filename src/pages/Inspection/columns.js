@@ -1,0 +1,51 @@
+export default [
+  {
+    title: 'Nr inwentarzowy',
+    fieldName: 'symbol',
+    sorting: true,
+    draggable: true,
+    position: 0,
+  },
+  {
+    title: 'Okres skontrum',
+    fieldName: 'inspectionPeriod',
+    sorting: false,
+    draggable: true,
+    position: 1,
+  },
+  {
+    title: 'Ilość spisowa',
+    fieldName: 'censusQuantity',
+    sorting: true,
+    draggable: true,
+    position: 2,
+  },
+  {
+    title: 'Ilość potwierdzona',
+    fieldName: 'confirmedQuantity',
+    sorting: true,
+    draggable: true,
+    position: 3,
+  },
+  {
+    title: 'Ilość braków',
+    fieldName: 'missingQuantity',
+    sorting: true,
+    draggable: true,
+    position: 4,
+  },
+  {
+    title: 'Ilość wypożyczonych',
+    fieldName: 'borrowedQuantity',
+    sorting: true,
+    draggable: true,
+    position: 5,
+  },
+  {
+    title: 'Status',
+    fieldName: 'status',
+    sorting: false,
+    draggable: true,
+    position: 5,
+  },
+];

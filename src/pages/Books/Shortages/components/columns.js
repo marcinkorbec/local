@@ -1,0 +1,67 @@
+export default [
+  {
+    title: 'Wizerunek',
+    fieldName: 'image',
+    draggable: true,
+    position: 0,
+  },
+  {
+    title: 'Nr inwentarzowy',
+    fieldName: 'symbol',
+    draggable: true,
+    sorting: true,
+    position: 0,
+  },
+  {
+    title: 'Id',
+    fieldName: 'id',
+    sorting: true,
+    draggable: true,
+    position: 1,
+  },
+  {
+    title: 'Znak',
+    fieldName: 'sign',
+    // sorting: true,
+    draggable: true,
+    position: 2,
+  },
+  {
+    title: 'Nazwa',
+    fieldName: 'name',
+    sorting: true,
+    draggable: true,
+    position: 3,
+  },
+  {
+    title: 'Prawa autorskie',
+    fieldName: 'copyright',
+    sorting: true,
+    draggable: true,
+    position: 4,
+  },
+  {
+    title: 'Twórca/ wytwórnia',
+    fieldName: 'author',
+    draggable: true,
+    position: 5,
+  },
+  {
+    title: 'Materiał',
+    fieldName: 'material',
+    draggable: true,
+    position: 6,
+  },
+  {
+    title: 'Technika',
+    fieldName: 'technique',
+    draggable: true,
+    position: 7,
+  },
+  {
+    title: '',
+    fieldName: 'menu',
+    draggable: false,
+    position: 999,
+  },
+];

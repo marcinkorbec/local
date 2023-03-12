@@ -1,0 +1,169 @@
+import React, { useContext } from 'react';
+import styled, { css } from 'styled-components';
+import StyledSelect from 'common/Inputs/StyledSelect';
+import CreatorContext from '../CreatorContext';
+import { books, booksContent } from '../creatorConsts';
+
+import * as S from '../ItemCreator.css';
+import { AddButton } from './Bookmarks/Bookmarks.css';
+
+const BookmarksWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 15px;
+  height: 30px;
+
+  background-color: ${({ theme }) => theme.primaryDark};
+`;
+
+const MenuButton = styled.button`
+  border: none;
+  padding: 7px 15px;
+  text-align: start;
+  background-color: transparent;
+  transition: 0.3s;
+  cursor: pointer;
+
+  ${({ theme, active }) =>
+    active &&
+    css`
+      background-color: ${theme.background};
+      font-weight: 600;
+    `};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.background};
+  }
+`;
+
+const HeaderContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100px;
+`;
+
+const HeaderItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 200px;
+  margin-left: 25px;
+
+  > input {
+    height: 38px;
+    padding: 5px 10px;
+    border: 1px solid ${({ theme }) => theme.primaryDark};
+    border-radius: 5px;
+  }
+
+  > div {
+    width: 100%;
+  }
+
+  span {
+    color: ${({ theme }) => theme.font};
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+`;
+
+export const HeaderButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 25px;
+`;
+
+const tempOptions = {
+  0: [
+    {
+      label: 'test 1',
+      value: 'test 1',
+    },
+  ],
+  1: [
+    {
+      label: 'test 1',
+      value: 'test 1',
+    },
+  ],
+  2: [
+    {
+      label: 'test 1',
+      value: 'test 1',
+    },
+  ],
+  3: [
+    {
+      label: 'test 1',
+      value: 'test 1',
+    },
+  ],
+  4: [
+    {
+      label: 'test 1',
+      value: 'test 1',
+    },
+  ],
+};
+
+const CreatorHeader = () => {
+  const { currentBook, setCurrentBook, handleCancel, handleSave } =
+    useContext(CreatorContext);
+
+  const mappedButtons = books.map(el => (
+    <MenuButton
+      key={el.label}
+      type='button'
+      active={currentBook === el.value}
+      onClick={() => setCurrentBook(el.value)}
+    >
+      {el.label}
+    </MenuButton>
+  ));
+
+  const mappedContent = booksContent[currentBook].map(el => (
+    <HeaderItem key={el.label}>
+      <span>{el.label}</span>
+      {el.type === 'select' ? (
+        <StyledSelect options={tempOptions[currentBook]} />
+      ) : (
+        <input type={el.type} />
+      )}
+    </HeaderItem>
+  ));
+
+  return (
+    <S.CreatorHeader>
+      <BookmarksWrapper>{mappedButtons}</BookmarksWrapper>
+      <HeaderContent>
+        {mappedContent}
+        <HeaderButtonsWrapper>
+          <AddButton
+            type='button'
+            style={{ marginRight: '25px', fontWeight: 600 }}
+            onClick={handleSave}
+          >
+            Zapisz
+          </AddButton>
+          <AddButton
+            type='button'
+            style={{ fontWeight: 600 }}
+            onClick={handleCancel}
+          >
+            Anuluj
+          </AddButton>
+        </HeaderButtonsWrapper>
+      </HeaderContent>
+    </S.CreatorHeader>
+  );
+};
+
+export default CreatorHeader;

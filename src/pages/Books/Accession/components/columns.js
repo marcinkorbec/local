@@ -1,0 +1,61 @@
+export default [
+  {
+    title: 'Nr inwentarzowy',
+    fieldName: 'symbol',
+    draggable: true,
+    sorting: true,
+    position: 0,
+  },
+  {
+    title: 'Znak',
+    fieldName: 'sign',
+    draggable: true,
+    position: 0,
+  },
+  {
+    title: 'Nazwa',
+    fieldName: 'name',
+    sorting: true,
+    draggable: true,
+    position: 1,
+  },
+  {
+    title: 'Wartość',
+    fieldName: 'value',
+    type: 'number',
+    sorting: true,
+    draggable: true,
+    position: 2,
+  },
+  {
+    title: 'Sposób nabycia',
+    fieldName: 'acquisitionContact',
+    draggable: true,
+    position: 3,
+  },
+  {
+    title: 'Źródło nabycia',
+    fieldName: 'acquisitionSource',
+    draggable: true,
+    position: 4,
+  },
+  {
+    title: 'Uwagi',
+    fieldName: 'comments',
+    draggable: true,
+    position: 5,
+  },
+  {
+    title: 'Data wpisu',
+    fieldName: 'entryDate',
+    sorting: true,
+    draggable: true,
+    position: 6,
+  },
+  {
+    title: '',
+    fieldName: 'menu',
+    draggable: false,
+    position: 999,
+  },
+];
