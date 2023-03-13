@@ -34,7 +34,6 @@ const Affiliation = () => {
     en: '',
   });
 
-  console.log(itemData);
   const updateState = (name, e) => {
     setItemData(prev => ({
       ...prev,

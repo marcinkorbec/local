@@ -20,6 +20,18 @@ const lengthUnits = [
     label: 'cm',
     value: 'cm',
   },
+  {
+    label: 'mm',
+    value: 'mm',
+  },
+  {
+    label: 'dm',
+    value: 'dm',
+  },
+  {
+    label: 'm',
+    value: 'm',
+  },
 ];
 
 const weightUnits = [
