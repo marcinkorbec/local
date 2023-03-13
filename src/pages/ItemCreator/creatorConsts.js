@@ -23,52 +23,48 @@ export const books = [
 
 export const bookmarks = [
   {
-    label: 'Opracowanie karty',
-    value: 15,
-  },
-  {
     label: 'Informacje podstawowe',
     value: 0,
-  },
-  {
-    label: 'Przynależność',
-    value: 4,
-  },
-  {
-    label: 'Gabaryt',
-    value: 9,
   },
   {
     label: 'Sposób pozyskania',
     value: 1,
   },
   {
-    label: 'Stan zachowania',
-    value: 8,
-  },
-  {
-    label: 'Historia obiektu',
-    value: 6,
-  },
-  {
     label: 'Wizerunek obiektu',
     value: 2,
-  },
-  {
-    label: 'Bibliografia',
-    value: 5,
   },
   {
     label: 'Pochodzenie',
     value: 3,
   },
   {
+    label: 'Przynależność',
+    value: 4,
+  },
+  {
     label: 'Elementy przedmiotu',
     value: 16,
   },
   {
+    label: 'Bibliografia',
+    value: 5,
+  },
+  {
+    label: 'Historia obiektu',
+    value: 6,
+  },
+  {
     label: 'Zalecenia konserwatorskie',
     value: 7,
+  },
+  {
+    label: 'Stan zachowania',
+    value: 8,
+  },
+  {
+    label: 'Gabaryt',
+    value: 9,
   },
   {
     label: 'Charakterystyka',
@@ -89,6 +85,10 @@ export const bookmarks = [
   {
     label: 'Pliki multimedialne',
     value: 14,
+  },
+  {
+    label: 'Opracowanie karty',
+    value: 15,
   },
 ];
 
